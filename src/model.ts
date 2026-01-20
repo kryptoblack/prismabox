@@ -1,6 +1,9 @@
 import { getConfig } from "./config";
-import { dateType } from "./generators/customTypes/date";
-import { uint8ArrayType } from "./generators/customTypes/uint8Array";
+import { dateImport, dateType } from "./generators/customTypes/date";
+import {
+  uint8ArrayImport,
+  uint8ArrayType,
+} from "./generators/customTypes/uint8Array";
 import { processedEnums } from "./generators/enum";
 import { processedInclude } from "./generators/include";
 import { processedOrderBy } from "./generators/orderBy";
@@ -132,10 +135,15 @@ export function mapAllModelsForWrite() {
   }
 
   for (const [key, value] of modelsPerName) {
-    modelsPerName.set(
-      key,
-      `${typepoxImportStatement()}\n${transformDateImportStatement()}\n${nullableImport()}\n${value}`,
-    );
+    const content = [
+      typepoxImportStatement(),
+      transformDateImportStatement(),
+      nullableImport(),
+      dateImport(),
+      uint8ArrayImport(),
+      value,
+    ];
+    modelsPerName.set(key, content.join("\n"));
   }
 
   modelsPerName.set(getConfig().nullableName, nullableType());
