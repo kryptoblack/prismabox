@@ -1,6 +1,7 @@
 import { getConfig } from "../../config";
 
 export function dateType() {
+  // TODO: Cover all the methods in Type.Base
   return `import { ${getConfig().typeboxImportVariableName} } from "${getConfig().typeboxImportDependencyName}"
 class TDateType extends Type.Base<Date> {
   public override Check(value: unknown): value is Date {

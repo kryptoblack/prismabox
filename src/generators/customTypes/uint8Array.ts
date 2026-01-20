@@ -1,6 +1,7 @@
 import { getConfig } from "../../config";
 
 export function uint8ArrayType() {
+  // TODO: Cover all the methods in Type.Base
   return `import { ${getConfig().typeboxImportVariableName} } from "${getConfig().typeboxImportDependencyName}";
 class TUint8ArrayType extends Type.Base<Uint8Array> {
   public override Check(value: unknown): value is Uint8Array {
@@ -21,7 +22,6 @@ export function ${getConfig().uint8ArrayTypeName}(): TUint8ArrayType {
 }`;
 }
 
-// TODO: Make the name configurable
 export function uint8ArrayImport() {
   return `import { ${getConfig().uint8ArrayTypeName} } from "./${getConfig().uint8ArrayTypeName}${getConfig().importFileExtension}"\n`;
 }
