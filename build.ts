@@ -1,10 +1,11 @@
-import { copyFile, exists, rm, writeFile } from "node:fs/promises";
+import { copyFile, rm, stat, writeFile } from "node:fs/promises";
 import { build } from "esbuild";
 import packagejson from "./package.json";
 
-if (await exists("./dist")) {
+try {
+  await stat("./dist");
   await rm("./dist", { force: true, recursive: true });
-}
+} catch {}
 
 const output = await build({
   entryPoints: ["./src/cli.ts"],
