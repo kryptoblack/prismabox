@@ -226,3 +226,4 @@ dist
 prisma/prismabox
 playground
 prisma/generated
+prisma/migration

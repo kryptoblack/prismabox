@@ -1,4 +1,6 @@
 import { getConfig } from "./config";
+import { dateType } from "./generators/customTypes/date";
+import { uint8ArrayType } from "./generators/customTypes/uint8Array";
 import { processedEnums } from "./generators/enum";
 import { processedInclude } from "./generators/include";
 import { processedOrderBy } from "./generators/orderBy";
@@ -138,6 +140,9 @@ export function mapAllModelsForWrite() {
 
   modelsPerName.set(getConfig().nullableName, nullableType());
   modelsPerName.set(getConfig().transformDateName, transformDateType());
+
+  modelsPerName.set(getConfig().dateTypeName, dateType());
+  modelsPerName.set(getConfig().uint8ArrayTypeName, uint8ArrayType());
 
   return modelsPerName;
 }

@@ -1,5 +1,5 @@
-import { type Static, Type } from "@sinclair/typebox";
-import { Value } from "@sinclair/typebox/value";
+import { type Static, Type } from "typebox";
+import { Value } from "typebox/value";
 
 const configSchema = Type.Object(
   {
@@ -14,11 +14,19 @@ const configSchema = Type.Object(
     /**
      * The name of the dependency to import the Type from typebox
      */
-    typeboxImportDependencyName: Type.String({ default: "@sinclair/typebox" }),
+    typeboxImportDependencyName: Type.String({ default: "typebox" }),
     /**
      * Whether to allow additional properties in the generated schemes
      */
     additionalProperties: Type.Boolean({ default: false }),
+    /**
+     * Should the query schemes be generated
+     */
+    queryModel: Type.Boolean({ default: false }),
+    /**
+     * Should the relation schemes be generated
+     */
+    relationModel: Type.Boolean({ default: false }),
     /**
      * Should the input schemes be generated
      */
@@ -39,6 +47,14 @@ const configSchema = Type.Object(
      * Prevents the foreignId field from being generated in the input model
      */
     ignoreForeignOnInputModel: Type.Boolean({ default: true }),
+    /**
+     * How the custom date type should be named
+     */
+    dateTypeName: Type.String({ default: "__date__" }),
+    /**
+     * How the custom uint8Array type should be named
+     */
+    uint8ArrayTypeName: Type.String({ default: "__uint8Array__" }),
     /**
      * How the nullable union should be named
      */
@@ -98,7 +114,7 @@ export function setConfig(input: unknown) {
     config = Value.Decode(configSchema, Value.Convert(configSchema, input));
     Object.freeze(config);
   } catch (error) {
-    console.error(Value.Errors(configSchema, input).First);
+    console.error(Value.Errors(configSchema, input)[0]);
     throw error;
   }
 }

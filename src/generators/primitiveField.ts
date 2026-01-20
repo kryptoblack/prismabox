@@ -56,7 +56,7 @@ export function stringifyPrimitiveType({
       return `${config.typeboxImportVariableName}.String(${opts})`;
     }
 
-    return `${getConfig().typeboxImportVariableName}.Date(${options})`;
+    return `${getConfig().dateTypeName}(${options})`;
   }
 
   if (fieldType === "Json") {
@@ -68,7 +68,7 @@ export function stringifyPrimitiveType({
   }
 
   if (fieldType === "Bytes") {
-    return `${getConfig().typeboxImportVariableName}.Uint8Array(${options})`;
+    return `${getConfig().uint8ArrayTypeName}(${options})`;
   }
 
   throw new Error("Invalid type for primitive generation");
